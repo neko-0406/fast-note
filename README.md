@@ -1,1 +1,1 @@
-# fast-note
+# Fast-Note
