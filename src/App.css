@@ -1,9 +1,26 @@
+@font-face {
+    font-family: "Noto-Sans-JP";
+    src: url("../src/assets/fonts/NotoSans.ttf") format("ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../src/assets/fonts/Inter.ttf") format("ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: "Inter", "Noto-Sans-JP", sans-serif;
 }
 
 #root {
@@ -17,7 +34,6 @@ body {
   box-sizing: border-box;
 }
 
-/* CSS Variables generated from Kigen.design */
 :root {
   --sky-blue-50: #eeffff;
   --sky-blue-100: #ebfeff;
