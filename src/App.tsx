@@ -3,7 +3,7 @@ import "./App.css";
 import { AppConfigProvider } from "./contexts/AppConfig";
 import MainContent from "./components/MainContent";
 import StatusBar from "./components/Statusbar";
-import SideMenubar from "./components/SideMenuBar";
+import SideMenubar from "./components/SideMenubar";
 
 function App(): ReactElement {
   return (
