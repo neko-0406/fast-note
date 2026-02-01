@@ -4,20 +4,20 @@ use serde::{Deserialize, Serialize};
 pub enum Theme {
     System,
     Dark,
-    Light
+    Light,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AppConfig {
     pub theme: Theme,
-    pub work_dir: String
+    pub work_dir: String,
 }
 
 impl AppConfig {
     pub fn new() -> AppConfig {
         Self {
             theme: Theme::System,
-            work_dir: String::new()
+            work_dir: String::new(),
         }
     }
 }
