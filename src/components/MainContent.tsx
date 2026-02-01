@@ -1,9 +1,17 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 import style from "../styles/MainContent.module.css"
 
-export default function MainContent(): ReactElement {
+interface MainContentProps {
+  children: ReactNode
+}
+
+export default function MainContent({ children }: MainContentProps): ReactElement {
   return (
-    <div className={style.Container}></div>
+    <div className={style.Container}>
+      {
+        children
+      }
+    </div>
   )
 }
