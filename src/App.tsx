@@ -1,9 +1,12 @@
 import "./App.css";
+import { AppConfigProvider } from "./contexts/AppConfig";
 
 function App() {
 
   return (
-    <>hello</>
+    <AppConfigProvider>
+      <div>hello</div>
+    </AppConfigProvider>
   );
 }
 
