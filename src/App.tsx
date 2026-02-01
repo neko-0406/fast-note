@@ -6,7 +6,6 @@ import StatusBar from "./components/Statusbar";
 import SideMenubar from "./components/SideMenuBar";
 
 function App(): ReactElement {
-
   return (
     <AppConfigProvider>
       <MainContent>

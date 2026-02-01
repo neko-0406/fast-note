@@ -1,17 +1,17 @@
 @font-face {
-    font-family: "Noto-Sans-JP";
-    src: url("../src/assets/fonts/NotoSans.ttf") format("ttf");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Noto-Sans-JP";
+  src: url("../src/assets/fonts/NotoSans.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Inter";
-    src: url("../src/assets/fonts/Inter.ttf") format("ttf");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  font-family: "Inter";
+  src: url("../src/assets/fonts/Inter.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 html,
@@ -35,24 +35,24 @@ body {
 }
 
 :root {
-  --sky-blue-50: #eeffff;
-  --sky-blue-100: #ebfeff;
-  --sky-blue-200: #e8fcff;
-  --sky-blue-300: #d8faff;
-  --sky-blue-400: #d4f6fd;
-  --sky-blue-500: #cdeff6;
-  --sky-blue-600: #b5ebf7;
-  --sky-blue-700: #ace2ee;
-  --sky-blue-800: #6cd9ef;
-  --sky-blue-900: #7ed0e0;
-  --sky-blue-1000: #6ec0d0;
-  --sky-blue-1100: #5db0c0;
-  --sky-blue-1200: #2aa1b6;
-  --sky-blue-1300: #1e91a5;
-  --sky-blue-1400: #008598;
-  --sky-blue-1500: #0c7888;
-  --sky-blue-1600: #006879;
-  --sky-blue-1700: #005968;
-  --sky-blue-1800: #004c5a;
-  --sky-blue-1900: #003f4d;
+  --white-10: #ffffff;
+  --white-20: #fafafa;
+  --white-30: #f7f7f7;
+  --white-40: #f3f3f3;
+  --white-50: #eeeeee;
+  --white-60: #e7e7e7;
+  --white-70: #dedede;
+  --white-80: #d3d3d3;
+  --white-90: #c5c5c5;
+  --white-100: #afafaf;
+  --white-110: #919191;
+  --white-120: #797979;
+  --white-130: #686868;
+  --white-140: #5b5b5b;
+  --white-150: #525252;
+  --white-160: #4a4a4a;
+  --white-170: #414141;
+  --white-180: #3a3a3a;
+  --white-190: #343434;
+  --white-200: #292929;
 }

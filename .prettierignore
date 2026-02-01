@@ -1,0 +1,8 @@
+.vscode
+node_modules
+public
+src-tauri
+.gitignore
+index.html
+package.json
+package-lock.json

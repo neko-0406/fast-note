@@ -1,4 +1,4 @@
 export interface AppConfig {
-  theme: "System" | "Dark" | "Light",
-  workDir: string
+  theme: "System" | "Dark" | "Light";
+  workDir: string;
 }
