@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { ReactElement } from 'react';
 
-import style from "../styles/SideMenubar.module.css";
+import style from '../styles/SideMenubar.module.css';
 
 export default function SideMenubar(): ReactElement {
   return <div className={style.Container}></div>;

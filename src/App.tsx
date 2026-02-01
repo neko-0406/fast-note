@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
-import "./App.css";
-import { AppConfigProvider } from "./contexts/AppConfig";
-import MainContent from "./components/MainContent";
-import StatusBar from "./components/Statusbar";
-import SideMenubar from "./components/SideMenubar";
+import { ReactElement } from 'react';
+import './App.css';
+import { AppConfigProvider } from './contexts/AppConfig';
+import MainContent from './components/MainContent';
+import StatusBar from './components/Statusbar';
+import SideMenubar from './components/SideMenubar';
 
 function App(): ReactElement {
   return (

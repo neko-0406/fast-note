@@ -1,14 +1,6 @@
-import { invoke } from "@tauri-apps/api/core";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { AppConfig } from "../types/AppConfig";
+import { invoke } from '@tauri-apps/api/core';
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from 'react';
+import { AppConfig } from '../types/AppConfig';
 
 interface AppConfigProps {
   appConfig: AppConfig | null;
@@ -22,7 +14,7 @@ export const AppConfigContext = createContext<AppConfigProps | null>(null);
 export function useAppContext(): AppConfigProps {
   const context = useContext(AppConfigContext);
   if (!context) {
-    throw new Error("useAppContext must be used within a AppContextProvider");
+    throw new Error('useAppContext must be used within a AppContextProvider');
   }
   return context;
 }
@@ -33,7 +25,7 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const loadAppConfig = async () => {
-      let appConfig: AppConfig = await invoke("get_app_config");
+      let appConfig: AppConfig = await invoke('get_app_config');
       setAppConfig(appConfig);
     };
 
@@ -48,9 +40,5 @@ export function AppConfigProvider({ children }: { children: React.ReactNode }) {
     [appConfig, setAppConfig],
   );
 
-  return (
-    <AppConfigContext.Provider value={defaultValue}>
-      {children}
-    </AppConfigContext.Provider>
-  );
+  return <AppConfigContext.Provider value={defaultValue}>{children}</AppConfigContext.Provider>;
 }
