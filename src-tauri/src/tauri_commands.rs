@@ -1,9 +1,16 @@
-use tauri::{async_runtime::Mutex, State};
+use std::sync::Mutex;
 
-use crate::app_config::AppConfig;
+use tauri::{State};
+
+use crate::app_config::{AppConfig, Theme};
 
 #[tauri::command]
-pub async fn get_app_config(app_config: State<'_, Mutex<AppConfig>>) -> Result<AppConfig, ()> {
-    let lock = app_config.lock().await;
-    Ok(lock.clone())
+pub async fn get_app_theme(app_config: State<'_, Mutex<AppConfig>>) -> Result<String, String> {
+    let config = app_config.lock().unwrap();
+    let theme = match config.theme {
+        Theme::System => String::from("System"),
+        Theme::Light => String::from("Light"),
+        Theme::Dark => String::from("Dark")
+    };
+    return Ok(theme);
 }

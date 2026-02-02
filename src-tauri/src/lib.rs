@@ -1,6 +1,6 @@
 use std::{
     fs::{self, File},
-    io::{BufReader, BufWriter},
+    io::{BufWriter, Write},
     sync::Mutex,
 };
 
@@ -15,7 +15,9 @@ use crate::app_config::AppConfig;
 mod app_config;
 mod tauri_commands;
 
-use tauri_commands::get_app_config;
+use tauri_commands:: {
+    get_app_theme
+};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -28,7 +30,7 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
-        .invoke_handler(tauri::generate_handler![get_app_config])
+        .invoke_handler(tauri::generate_handler![get_app_theme])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -36,6 +38,30 @@ pub fn run() {
 // アプリの設定ファイルと設定の初期化
 fn setup_config(app: &App) {
     let app_handle = app.app_handle();
+    let data_dir = app_handle
+        .path()
+        .app_data_dir()
+        .expect("データフォルダの取得に失敗しました");
+    // フォルダが無ければ作成
+    if !data_dir.exists() {
+        fs::create_dir_all(&data_dir).expect("データフォルダの作成に失敗しました");
+    }
+    // コンフィグファイル
+    let config_file_path = data_dir.join("app_config.json");
+    // コンフィグファイルがなければ作成・初期化
+    if !config_file_path.exists() {
+        let file = File::create(&config_file_path).expect("コンフィグファイルの生成に失敗しました");
+        let app_config = AppConfig::new();
+
+        let writer = BufWriter::new(file);
+        serde_json::to_writer_pretty(writer, &app_config)
+            .expect("コンフィグファイルの初期化に失敗しました");
+    }
+    // コンフィグファイルをロード
+    let reader = File::open(&config_file_path).expect("コンフィグファイルの取得に失敗しました");
+    let app_config: AppConfig =
+        serde_json::from_reader(reader).expect("コンフィグファイルのロードに失敗しました");
+    app.manage(Mutex::new(app_config));
 }
 
 // windowメニューの初期化
