@@ -14,3 +14,10 @@ pub async fn get_app_theme(app_config: State<'_, Mutex<AppConfig>>) -> Result<St
     };
     return Ok(theme);
 }
+
+#[tauri::command]
+pub async fn get_app_work_dir(app_config: State<'_, Mutex<AppConfig>>) -> Result<String, String> {
+    let config = app_config.lock().unwrap();
+    let work_dir = String::from(&config.work_dir);
+    return Ok(work_dir);
+}
