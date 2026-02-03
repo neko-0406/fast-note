@@ -1,5 +1,18 @@
 .Container {
   height: 100%;
   width: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.IconArea {
+  height: 100%;
+  width: 50px;
   background-color: var(--white-110);
+}
+
+.ContentArea {
+    flex: 1;
+    height: 100%;
+    background-color: var(--white-100);
 }
