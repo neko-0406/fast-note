@@ -1,6 +1,6 @@
 use std::{
     fs::{self, File},
-    io::{BufWriter, Write},
+    io::BufWriter,
     sync::Mutex,
 };
 
@@ -13,6 +13,7 @@ use tauri_plugin_dialog::DialogExt;
 use crate::app_config::AppConfig;
 
 mod app_config;
+mod file_tree;
 mod tauri_commands;
 
 use tauri_commands:: {
