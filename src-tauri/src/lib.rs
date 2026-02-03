@@ -18,7 +18,8 @@ mod tauri_commands;
 
 use tauri_commands:: {
     get_app_theme,
-    get_app_work_dir
+    get_app_work_dir,
+    get_app_config
 };
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -34,7 +35,8 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
             get_app_theme,
-            get_app_work_dir
+            get_app_work_dir,
+            get_app_config
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
