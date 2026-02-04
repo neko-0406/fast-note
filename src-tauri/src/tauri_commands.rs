@@ -2,7 +2,7 @@ use std::sync::Mutex;
 
 use tauri::{State};
 
-use crate::app_config::{AppConfig, Theme};
+use crate::{app_config::{AppConfig, Theme}, file_tree::FileItem};
 
 // アプリテーマをフロントに渡す関数
 #[tauri::command]
@@ -30,7 +30,15 @@ pub async fn get_app_config(app_config: State<'_, Mutex<AppConfig>>) -> Result<A
 }
 // 作業ディレクトリのマッピングをする関数
 #[tauri::command]
-pub async fn get_work_dir_tree() {
-    let 
-    Ok(())
+pub async fn get_work_dir_tree(app_config: State<'_, Mutex<AppConfig>>) -> Result<FileItem, String> {
+    let lock = app_config.lock().unwrap();
+    let work_dir_path = &lock.work_dir;
+    println!("{}", &work_dir_path);
+    if !work_dir_path.is_empty() {
+        let mut file_item = FileItem::init(&work_dir_path);
+        file_item.create_tree();
+        Ok(file_item)
+    } else {
+        Ok(FileItem::new())
+    }
 }
