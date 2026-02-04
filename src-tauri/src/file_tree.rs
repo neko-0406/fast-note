@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{fs::File, path::Path};
 
 pub enum Node {
     Directory,
@@ -10,7 +10,7 @@ pub struct FileItem {
     pub abs_path: String,
     pub node: Node,
     pub level: i32,
-    pub children: Vec<FileItem>
+    pub children: Vec<&FileItem>
 }
 
 impl FileItem {
@@ -46,7 +46,29 @@ impl FileItem {
         file_item
     }
 
-    pub fn createTree(root_item: &mut FileItem) {
-        
+    pub fn create_tree(&mut self, root_item: Option<FileItem>) {
+        let root_path = Path::new(&self.abs_path);
+        // root_itemの中のディレクトリを取得
+        if let Ok(directories) = root_path.read_dir() {
+            for entry_result in directories {
+                // entryのエラーチェック
+                let entry = match entry_result {
+                    Ok(e) => e,
+                    Err(_) => continue,
+                };
+                
+                if let Ok(ft) = entry.file_type() {
+                    let path_str = entry.path().to_string_lossy().to_string();
+                    let mut new_item = FileItem::init(&path_str);
+                    
+                    if ft.is_dir() {
+                        self.children.push(&new_item);
+                        self.create_tree(Some(new_item));
+                    } else if ft.is_file() {
+                        self.children.push(&new_item);
+                    }
+                }
+            }
+        }
     }
 }

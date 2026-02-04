@@ -31,5 +31,6 @@ pub async fn get_app_config(app_config: State<'_, Mutex<AppConfig>>) -> Result<A
 // 作業ディレクトリのマッピングをする関数
 #[tauri::command]
 pub async fn get_work_dir_tree() {
-    
+    let 
+    Ok(())
 }
