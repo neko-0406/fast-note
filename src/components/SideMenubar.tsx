@@ -2,6 +2,7 @@ import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import style from '../styles/SideMenubar.module.css';
 import { LuFolderTree, LuSettings, LuGitFork } from 'react-icons/lu';
+import FileTree from './FileTree';
 
 type MenuID = 'FileTree' | 'Setting' | 'Git' | null;
 export default function SideMenubar(): ReactElement {
@@ -45,6 +46,13 @@ export default function SideMenubar(): ReactElement {
     },
     [selectedId, showContent, hideMenuContent, showMenuContent],
   );
+  
+  const showContentByMenuId = () => {
+    switch (selectedId) {
+      case "FileTree": return <FileTree />
+      default: return null
+    }
+  }
 
   useEffect(() => {
     if (isDraggable) {
@@ -74,7 +82,7 @@ export default function SideMenubar(): ReactElement {
           <LuSettings size={32} />
         </button>
       </div>
-      {showContent ? <div className={style.ContentArea}></div> : null}
+      {showContent ? <div className={style.ContentArea}>{showContentByMenuId()}</div> : null}
       {showContent ? <div className={style.MenuBorderLine} onMouseDown={handleMouseDwon}></div> : null}
     </div>
   );
