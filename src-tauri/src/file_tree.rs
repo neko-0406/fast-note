@@ -1,6 +1,7 @@
 use std::path::Path;
 
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Node {
@@ -10,6 +11,7 @@ pub enum Node {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FileItem {
+    pub id: String,
     pub name: String,
     pub abs_path: String,
     pub node: Node,
@@ -20,6 +22,7 @@ pub struct FileItem {
 impl FileItem {
     pub fn new() -> FileItem {
         Self {
+            id: Uuid::new_v4().to_string(),
             name: String::new(),
             abs_path: String::new(),
             node: Node::Directory,

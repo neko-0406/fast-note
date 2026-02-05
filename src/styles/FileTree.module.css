@@ -12,4 +12,34 @@
   width: 100%;
   height: 1.5rem;
   user-select: none;
+  text-align: left;
+  padding: 0;
+  white-space: nowrap;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+}
+.FileTreeItem:hover {
+  background-color: var(--white-110);
+}
+
+.FileItem {
+  list-style: none;
+}
+
+.FolderRoot {
+  list-style: none;
+  padding: 0;
+  padding-left: 7px;
+  margin: 0;
+  margin-left: 7px;
+}
+
+.FolderItem {
+  list-style: none;
+  padding: 0;
+  padding-left: 7px;
+  margin: 0;
+  margin-left: 7px;
+  border-left: 1px black solid;
 }

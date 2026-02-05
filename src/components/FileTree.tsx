@@ -11,11 +11,11 @@ const FileTree = memo(function FileTree({ fileTreeData }: FileTreeProps): ReactE
   return (
     <div className={style.FileTreeContainer}>
       {fileTreeData != null ? (
-        <ul>
+        <ul className={style.FolderRoot}>
           {fileTreeData.node === 'Directory' ? (
-            <FolderItemContent folderItem={fileTreeData} />
+            <FolderItemContent key={fileTreeData.id} folderItem={fileTreeData} />
           ) : (
-            <FileItemContent fileItem={fileTreeData} />
+            <FileItemContent key={fileTreeData.id} fileItem={fileTreeData} />
           )}
         </ul>
       ) : null}
@@ -34,9 +34,9 @@ export interface FolderItemProps {
 // ファイルを表示するコンポーネント
 export const FileItemContent = memo(function FileItemContent({ fileItem }: FileItemProps): ReactElement {
   return (
-    <li>
+    <li className={style.FileItem}>
       <button className={style.FileTreeItem}>
-        <LuFile />
+        <LuFile size={16} />
         <span>{fileItem.name}</span>
       </button>
     </li>
@@ -46,9 +46,9 @@ export const FileItemContent = memo(function FileItemContent({ fileItem }: FileI
 export function TreeItem(items: FileItem[]) {
   return items.map((item) =>
     item.node === 'Directory' ? (
-      <FolderItemContent key={item.absPath} folderItem={item} />
+      <FolderItemContent key={item.id} folderItem={item} />
     ) : (
-      <FileItemContent key={item.absPath} fileItem={item} />
+      <FileItemContent key={item.id} fileItem={item} />
     ),
   );
 }
@@ -59,14 +59,14 @@ export const FolderItemContent = memo(function FolderItemContent({ folderItem }:
   const toggleFolderState = useCallback(() => setOpened((pre) => !pre), []);
 
   return (
-    <div>
-      <li>
+    <li className={style.FileItem}>
+      <div>
         <button className={style.FileTreeItem} onClick={toggleFolderState}>
           {opened ? <LuFolderOpen /> : <LuFolder />}
           <span>{folderItem.name}</span>
         </button>
-      </li>
-      {opened && folderItem.children ? <ul> {TreeItem(folderItem.children)} </ul> : null}
-    </div>
+        {opened && folderItem.children ? <ul className={style.FolderItem}> {TreeItem(folderItem.children)} </ul> : null}
+      </div>
+    </li>
   );
 });
