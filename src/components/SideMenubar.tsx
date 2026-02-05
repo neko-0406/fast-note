@@ -3,6 +3,7 @@ import { ReactElement, useCallback, useEffect, useState } from 'react';
 import style from '../styles/SideMenubar.module.css';
 import { LuFolderTree, LuSettings, LuGitFork } from 'react-icons/lu';
 import FileTree from './FileTree';
+import { useAppState } from '../contexts/AppState';
 
 type MenuID = 'FileTree' | 'Setting' | 'Git' | null;
 export default function SideMenubar(): ReactElement {
@@ -10,6 +11,8 @@ export default function SideMenubar(): ReactElement {
   const [isDraggable, setIsDraggable] = useState<boolean>(false);
   const [menuWidth, setMenuWidth] = useState<number>(100);
   const [selectedId, setSelectedId] = useState<MenuID>(null);
+
+  const appState = useAppState();
 
   const handleMouseMove = useCallback((event: globalThis.MouseEvent) => {
     setMenuWidth((pre) => Math.max(pre + event.movementX, 100));
@@ -46,13 +49,15 @@ export default function SideMenubar(): ReactElement {
     },
     [selectedId, showContent, hideMenuContent, showMenuContent],
   );
-  
+
   const showContentByMenuId = () => {
     switch (selectedId) {
-      case "FileTree": return <FileTree />
-      default: return null
+      case 'FileTree':
+        return <FileTree fileTreeData={appState.fileTree} />;
+      default:
+        return null;
     }
-  }
+  };
 
   useEffect(() => {
     if (isDraggable) {
