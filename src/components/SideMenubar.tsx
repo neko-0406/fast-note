@@ -94,13 +94,13 @@ export default function SideMenubar(): ReactElement {
           <LuFolderTree size={32} fontWeight={20} />
         </button>
         <button className={style.IconButton} onClick={() => toggleDisplayContent('Git')}>
-          <LuGitFork size={32}  fontWeight={20}/>
+          <LuGitFork size={32} fontWeight={20} />
         </button>
         <button className={style.IconButton} onClick={() => toggleDisplayContent('Setting')}>
           <LuSettings size={32} fontWeight={20} />
         </button>
       </div>
-      <Activity mode={showContent ? "visible" : "hidden"}>
+      <Activity mode={showContent ? 'visible' : 'hidden'}>
         <div className={style.ContentArea}>
           <SideMenuContent selectedId={selectedId} fileTreeItem={fileTree} />
         </div>
