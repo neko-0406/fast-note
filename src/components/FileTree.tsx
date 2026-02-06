@@ -44,7 +44,18 @@ export const FileItemContent = memo(function FileItemContent({ fileItem }: FileI
 });
 
 export function TreeItem(items: FileItem[]) {
-  return items.map((item) =>
+  
+  const sortedItems = [...items].sort((a, b) => {
+      const aIsDirectory = a.node === 'Directory';
+      const bIsDirectory = b.node === 'Directory';
+  
+      if (aIsDirectory && !bIsDirectory) return -1;
+      if (!aIsDirectory && bIsDirectory) return 1;
+  
+      return a.name.localeCompare(b.name, undefined, { numeric: true });
+    });
+  
+  return sortedItems.map((item) =>
     item.node === 'Directory' ? (
       <FolderItemContent key={item.id} folderItem={item} />
     ) : (
