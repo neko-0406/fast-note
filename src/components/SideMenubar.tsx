@@ -5,8 +5,13 @@ import { LuFolderTree, LuSettings, LuGitFork } from 'react-icons/lu';
 import FileTree from './FileTree';
 import { useAppState } from '../contexts/AppState';
 import { FileItem } from '../types/FileTree';
+import { listen } from '@tauri-apps/api/event';
 
 type MenuID = 'FileTree' | 'Setting' | 'Git' | null;
+
+interface OpenFolderEvent {
+  new_file_item: FileItem
+}
 
 interface SideMenuContentProps {
   selectedId: MenuID;
@@ -34,7 +39,7 @@ export default function SideMenubar(): ReactElement {
   const [menuWidth, setMenuWidth] = useState<number>(100);
   const [selectedId, setSelectedId] = useState<MenuID>(null);
 
-  const { fileTree } = useAppState();
+  const { fileTree, setFileItem } = useAppState();
 
   const handleMouseMove = useCallback((event: globalThis.MouseEvent) => {
     setMenuWidth((pre) => Math.max(pre + event.movementX, 100));
@@ -86,6 +91,22 @@ export default function SideMenubar(): ReactElement {
       document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isDraggable, handleMouseUp, handleMouseMove]);
+  
+  useEffect(() => {
+    let unlisten: (() => void) | undefined;
+    
+    async function setupOpenFolderEventListener() {
+      unlisten = await listen<OpenFolderEvent>('open-folder-event', (event) => {
+        console.log(event.payload.new_file_item);
+        setFileItem(event.payload.new_file_item);
+      })
+    };
+    setupOpenFolderEventListener();
+    
+    return () => {
+      if (unlisten) unlisten();
+    };
+  }, []);
 
   return (
     <div className={style.Container} style={{ width: `${menuWidth}px` }}>

@@ -5,16 +5,16 @@ use std::{
 };
 
 use tauri::{
-    menu::{MenuBuilder, SubmenuBuilder},
-    App, AppHandle, Manager,
+    App, AppHandle, Emitter, Manager, menu::{MenuBuilder, SubmenuBuilder}
 };
 use tauri_plugin_dialog::DialogExt;
 
-use crate::app_config::AppConfig;
+use crate::{app_config::AppConfig, file_tree::FileItem, interface::OpenFolderEvent};
 
 mod app_config;
 mod file_tree;
 mod tauri_commands;
+mod interface;
 
 use tauri_commands:: {
     get_app_theme,
@@ -85,7 +85,7 @@ fn setup_window_menu(app: &App) {
     app.set_menu(window_menu).unwrap();
 
     app.on_menu_event(move |app_handle: &AppHandle, event| {
-        println!("menu event {:?}", event.id());
+        // println!("menu event {:?}", event.id());
         match event.id().0.as_str() {
             "open_dir" => {
                 let selected_dir = app_handle
@@ -98,9 +98,14 @@ fn setup_window_menu(app: &App) {
                         let config = app_handle.state::<Mutex<AppConfig>>();
                         let mut lock = config.lock().unwrap();
                         lock.work_dir = dir_path.to_string();
+                        let mut file_tree = FileItem::init(&dir_path.to_string());
+                        file_tree.create_tree();
+                        let data = OpenFolderEvent { new_file_item: file_tree };
+                        app_handle.emit("open-folder-event", data).unwrap();
                     }
-                    None => {}
+                    None => { return; }
                 }
+                
             }
             _ => {}
         }
