@@ -1,0 +1,15 @@
+.Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.TabIndexContainer {
+    width: 100%;
+    height: 1.5rem;
+}
+
+.TabValueContainer {
+    width: 100%;
+}
