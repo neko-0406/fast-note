@@ -19,6 +19,7 @@ export function useAppState(): AppStateProps {
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const [fileItem, setFileItem] = useState<FileItem | null>(null);
+  // const [tabData, setTabData] = useState
 
   useEffect(() => {
     const loadFileTree = async () => {
