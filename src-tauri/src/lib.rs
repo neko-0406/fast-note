@@ -5,7 +5,8 @@ use std::{
 };
 
 use tauri::{
-    App, AppHandle, Emitter, Manager, menu::{MenuBuilder, SubmenuBuilder}
+    menu::{MenuBuilder, SubmenuBuilder},
+    App, AppHandle, Emitter, Manager,
 };
 use tauri_plugin_dialog::DialogExt;
 
@@ -13,15 +14,10 @@ use crate::{app_config::AppConfig, file_tree::FileItem, interface::OpenFolderEve
 
 mod app_config;
 mod file_tree;
-mod tauri_commands;
 mod interface;
+mod tauri_commands;
 
-use tauri_commands:: {
-    get_app_theme,
-    get_app_work_dir,
-    get_app_config,
-    get_work_dir_tree
-};
+use tauri_commands::{get_app_config, get_app_theme, get_app_work_dir, get_work_dir_tree};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -100,12 +96,15 @@ fn setup_window_menu(app: &App) {
                         lock.work_dir = dir_path.to_string();
                         let mut file_tree = FileItem::init(&dir_path.to_string());
                         file_tree.create_tree();
-                        let data = OpenFolderEvent { new_file_item: file_tree };
+                        let data = OpenFolderEvent {
+                            new_file_item: file_tree,
+                        };
                         app_handle.emit("open-folder-event", data).unwrap();
                     }
-                    None => { return; }
+                    None => {
+                        return;
+                    }
                 }
-                
             }
             _ => {}
         }
